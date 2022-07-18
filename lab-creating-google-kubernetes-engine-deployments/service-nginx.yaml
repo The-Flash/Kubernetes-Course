@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  type: LoadBalancer
+  sessionAffinity: ClientIP # ensures all requests from a single client will always connect to the same Pod
+  selector:
+    app: nginx
+  ports:
+    - port: 60000
+      targetPort: 80
+      protocol: TCP
