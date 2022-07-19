@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: web
+  template:
+    metadata:
+      labels:
+        run: web
+    spec:
+      containers:
+        - name: web
+          image: gcr.io/google-samples/hello-app:1.0
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "250m"
+      tolerations:
+        - key: "nodetype"
+          operator: Equal
+          value: "preemptible"
+      nodeSelector:
+        temp: "true"

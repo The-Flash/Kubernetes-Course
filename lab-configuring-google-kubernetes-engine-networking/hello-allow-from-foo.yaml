@@ -1,0 +1,17 @@
+# Network policy to allow ingress traffic from app=foo to app=hello
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: hello-allow-from-foo
+spec:
+  policyTypes:
+    - Ingress
+  podSelector:
+    matchLabels:
+      app: hello
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: foo
